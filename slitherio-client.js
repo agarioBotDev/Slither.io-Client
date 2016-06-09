@@ -21,30 +21,10 @@ function Client(client_name) {
     //you can change this values
     this.client_name = client_name; //name used for log
     this.debug = 5;           //debug level, 0-5 (5 will output extremely lot of data)
-    this.inactive_destroy = 5 * 60 * 1000;   //time in ms when to destroy inactive balls
-    this.inactive_check = 10 * 1000;     //time in ms when to search inactive balls
-    this.spawn_interval = 200;         //time in ms for respawn interval. 0 to disable (if your custom server don't have spawn problems)
-    this.spawn_attempts = 25;          //how much attempts to spawn before give up (official servers do have unstable spawn problems)
     this.agent = null;        //agent for connection. Check additional info in readme
     this.local_address = null;        //local interface to bind to for network connections (IP address of interface)
-    this.headers = {            //headers for WebSocket connection.
-        'Origin': 'http://slither.io'
-    };
-    
     this.pong = true;
-    //don't change things below if you don't understand what you're doing
-    this.username = "s-bots com";
-    this.tick_counter = 0;    //number of ticks (packet ID 16 counter)
-    this.inactive_interval = 0;    //ID of setInterval()
-    this.balls = {};   //all balls
-    this.my_balls = [];   //IDs of my balls
-    this.score = 0;    //my score
-    this.leaders = [];   //IDs of leaders in FFA mode
-    this.teams_scores = [];   //scores of teams in Teams mode
-    this.auth_token = '';   //auth token. Check README.md how to get it
-    this.auth_provider = 1;    //auth provider. 1 = facebook, 2 = google
-    this.spawn_attempt = 0;    //attempt to spawn
-    this.spawn_interval_id = 0;    //ID of setInterval()
+    this.username = "d-bots com";
     this.ping_interval = 250;
     this.ping = 0;
     this.x = 0;
@@ -67,8 +47,6 @@ Client.prototype = {
         this.ws.connect(server, null, 'http://slither.io', null, opt);
 
         if (this.debug >= 1) {
-            if (!key) this.log('[warning] You did not specified "key" for Client.connect(server, key)\n' +
-                '          If server will not accept you, this may be the problem');
             this.log('connecting...');
         }
 
@@ -131,8 +109,7 @@ Client.prototype = {
                 }
                 break;
             case 'v':
-                console.log('died !!');
-                this.emitEvent('lostMyBalls');
+                this.emitEvent('Died');
                 break;
             case 'g':
                 var snakeID = msg.readInt16();
@@ -176,8 +153,7 @@ Client.prototype = {
         }
         return buf;
     },
-    // Had to do this because sometimes somehow packets get moving by 1 byte
-    // https://github.com/pulviscriptor/agario-client/issues/46#issuecomment-169764771
+
     onPacketError: function (packet, err) {
         var crash = true;
 
@@ -209,26 +185,6 @@ Client.prototype = {
         }
     },
 
-    //functions that you can call to control your balls
-
-    //spawn ball
-    spawn: function (name) {
-        
-        
-        /*
-        var buf = new Buffer(3 + this.username);
-        buf.writeInt8(115, 0);
-        buf.writeInt8(7, 1);
-        buf.writeInt8(this.skin, 2);
-        this.send(this.appendStringBytes(this.username, buf));
-        */
-        return true;
-    },
-
-    //activate spectate mode
-    
-
-    //switch spectate mode (toggle between free look view and leader view)
     send: function(buf) {
         if (this.connection){ this.connection.sendBytes(buf);}
     },
