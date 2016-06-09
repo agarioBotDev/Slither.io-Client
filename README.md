@@ -20,10 +20,10 @@ I only implemented the basics, maybe I will implement more soon.
 
 To create a new Client do:
 
-**var SlitherioClient = require('./slitherio-client.js');**
+`var SlitherioClient = require('./slitherio-client.js');`
 
-**var Slitherclient = new SlitherioClient('TestClient');**
+`var Slitherclient = new SlitherioClient('TestClient');`
 
-**// You can move the client to all x, and y coordinates - just do:**
+`// You can move the client to all x, and y coordinates - just do:`
 
-**Slitherclient.moveTo(x, y);**
+`Slitherclient.moveTo(x, y);`
