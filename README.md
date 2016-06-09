@@ -27,3 +27,11 @@ To create a new Client do:
 `// You can move the client to all x, and y coordinates - just do:`
 
 `Slitherclient.moveTo(x, y);`
+
+You can also boost your Snake:
+
+`// Start Boosting`
+`Slitherclient.StartBoostSnake();`
+
+`// Stop Boost`
+`Slitherclient.StopBoostSnake();`
