@@ -31,7 +31,9 @@ To create a new Client do:
 You can also boost your Snake:
 
 `// Start Boosting`
+
 `Slitherclient.StartBoostSnake();`
 
 `// Stop Boost`
+
 `Slitherclient.StopBoostSnake();`
