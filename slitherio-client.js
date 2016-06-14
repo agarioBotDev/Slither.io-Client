@@ -44,7 +44,7 @@ Client.prototype = {
         this.ws = new WebSocketClient();
         this.ws.on('connect', this.onConnect.bind(this));
         this.ws.on('connectFailed', this.onError.bind(this));
-        this.ws.connect(server, null, 'http://slither.io', null, opt);
+        this.ws.connect(server, null, 'http://slither.io', null, opt); // server example: ws://167.45.234.32:443/slither
 
         if (this.debug >= 1) {
             this.log('connecting...');
